@@ -1,0 +1,18 @@
+import tkinter, time
+
+screen=tkinter.Tk()
+screen.geometry("900x50")
+
+screen.title("Clock")
+screen.configure(background="pink")
+
+def calc_time():
+    timev=time.strftime("%I:%M:%S%p")
+    label.configure(text=timev)
+    label.after(1000,calc_time)
+
+label=tkinter.Label(screen,background="black",fg="red",text="",font=("times new roman",35))
+label.pack()
+
+calc_time()
+screen.mainloop()
