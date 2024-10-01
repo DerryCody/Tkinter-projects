@@ -1,0 +1,47 @@
+import tkinter,random
+import tkinter.messagebox
+
+screen=tkinter.Tk()
+screen.geometry("900x900")
+
+screen.title("Number guesser")
+screen.configure(background="green")
+
+number=random.randint(0,100)
+
+def say_hello():
+    name1=name.get()
+    tkinter.messagebox.askyesnocancel("Hi","Hello "+name1)
+
+def guessprox():
+    global number
+    guess1=int(guess.get())
+    if guess1<number:
+      tkinter.messagebox.showinfo("Hi","Your number is lower than the real number")
+    if guess1>number:
+      tkinter.messagebox.showinfo("Hi","Your number is higher than the real number")
+    if guess1==number:
+      tkinter.messagebox.showinfo("Hi","Well done! You guessed the number")
+
+welcomemsg=tkinter.Label(screen,background="grey",text="Welcome to the number guesser!",font=("times new roman",50))
+welcomemsg.pack()
+
+label=tkinter.Label(screen,background="grey",text="What's your name?",font=("times new roman",50))
+label.place(x=0,y=300)
+
+name=tkinter.Entry(screen,background="grey",font=("times new roman",50))
+name.place(x=0,y=400)
+
+guessmsg=tkinter.Label(screen,background="grey",text="Guess a number:",font=("times new roman",50))
+guessmsg.place(x=0,y=500)
+
+guess=tkinter.Entry(screen,background="grey",font=("times new roman",50))
+guess.place(x=0,y=600)
+
+nameb=tkinter.Button(screen,background="grey",text="OK",command=say_hello,font=("times new roman",50))
+nameb.place(x=600,y=300)
+
+guessb=tkinter.Button(screen,background="grey",text="Guess",command=guessprox,font=("times new roman",50))
+guessb.place(x=600,y=500)
+
+screen.mainloop()
