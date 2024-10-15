@@ -1,0 +1,57 @@
+import tkinter
+import tkinter.ttk
+import tkinter.messagebox
+import time
+
+screen=tkinter.Tk()
+screen.geometry("900x600")
+
+screen.title("Stopwatch")
+screen.configure(background="white")
+ 
+hours1=tkinter.StringVar()
+minutes1=tkinter.StringVar()
+seconds1=tkinter.StringVar()
+hours1.set("00")
+minutes1.set("00")
+seconds1.set("00")
+
+def cd():
+    hs=int(hours1.get())*3600
+    ms=int(minutes1.get())*60
+    ts=hs+ms+int(seconds1.get()) 
+    for i in range (ts):
+       ts=ts-1
+       time.sleep(1)
+       print(ts)
+       h=ts//3600
+       m=(ts%3600)//60
+       s=ts%60
+       hours1.set(h)
+       minutes1.set(m)
+       seconds1.set(s)
+       hours.configure(state="disabled")
+       minutes.configure(state="disabled")
+
+       screen.update()
+    finish(ts)
+def finish(ts):
+    if ts<=0:
+       tkinter.messagebox.showinfo("Hi","Your time has run out!")
+      
+
+hours=tkinter.Entry(screen,width=5,fg="white",textvariable=hours1,font=("times new roman",50))
+hours.place(x=200,y=200)
+
+minutes=tkinter.Entry(screen,width=5,fg="white",textvariable=minutes1,font=("times new roman",50))
+minutes.place(x=350,y=200)
+
+seconds=tkinter.Entry(screen,width=5,fg="white",textvariable=seconds1,font=("times new roman",50))
+seconds.place(x=500,y=200)
+
+start=tkinter.Button(screen,background="white",text="Start countdown",command=cd,font=("times new roman",50))
+start.place(x=200,y=300)
+
+
+
+screen.mainloop()
