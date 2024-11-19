@@ -17,11 +17,24 @@ def lu():
 def openf():
   pass
 def savef():
-  pass
+  f=tkinter.filedialog.asksaveasfile()
+  print(data,file=f) 
+  data.clear()
 def edit():
-  pass
+  nameselected=Names.curselection()
+  namep=Names.get(nameselected)
+  datas=data.get(namep)
+  birthdayi.insert(tkinter.END,datas[3])
+  emaili.insert(tkinter.END,datas[2])
+  mobilei.insert(tkinter.END,datas[1])  
+  addressi.insert(tkinter.END,datas[0])
+  namei.insert(tkinter.END,namep)
+
 def delete():
-  pass
+  item=Names.curselection()
+  itemp=Names.get(item)
+  Names.delete(item)
+  del data[itemp]
 def update():
   global data
   namev=namei.get()
@@ -31,6 +44,12 @@ def update():
   birthdayv=birthdayi.get()
   data[namev]=[addressv,mobilev,emailv,birthdayv]
   lu()
+  namei.delete(0,tkinter.END)
+  addressi.delete(0,tkinter.END)
+  mobilei.delete(0,tkinter.END)
+  emaili.delete(0,tkinter.END)
+  birthdayi.delete(0,tkinter.END)
+
 
 title=tkinter.Label(screen,background="grey",text="My address book",font=("times new roman",30))
 title.grid(row=0,column=1)
