@@ -1,5 +1,6 @@
 import tkinter
 import tkinter.filedialog
+import tkinter.messagebox
 
 screen=tkinter.Tk()
 screen.geometry("750x900")
@@ -14,12 +15,28 @@ def lu():
   Names.delete(0,tkinter.END)
   for Name in Names1:
     Names.insert(tkinter.END,Name)
+
 def openf():
-  pass
+  global data
+  f=tkinter.filedialog.askopenfile()
+  fr=eval(f.read())
+  for l in fr.keys():
+    Names.insert(tkinter.END,l)
+  for key in fr.keys():
+    data[key]=fr[key]
+    
+def show():
+  namechosen=Names.curselection()
+  nci=Names.get(namechosen)
+  ti=data.get(nci)
+  tkinter.messagebox.showinfo("Hi ",nci+"\n Your address is: "+ti[0]+"\n Your mobile number is: "+ti[1]+"\n Your email is: "+ti[2]+"\n Your birthday is: "+ti[3])
+  
+
 def savef():
   f=tkinter.filedialog.asksaveasfile()
   print(data,file=f) 
   data.clear()
+
 def edit():
   nameselected=Names.curselection()
   namep=Names.get(nameselected)
@@ -35,7 +52,8 @@ def delete():
   itemp=Names.get(item)
   Names.delete(item)
   del data[itemp]
-def update():
+
+def updateadd():
   global data
   namev=namei.get()
   addressv=addressi.get()
@@ -96,11 +114,13 @@ birthdayl.grid(row=5,column=2)
 birthdayi=tkinter.Entry(screen,fg="white",font=("times new roman",30))
 birthdayi.grid(row=5,column=3)
 
-updateb=tkinter.Button(screen,background="white",command=update,text="UPDATE",font=("times new roman",30))
+updateb=tkinter.Button(screen,background="white",command=updateadd,text="UPDATE/ADD",font=("times new roman",30))
 updateb.grid(row=6,column=3,)
 
 saveb=tkinter.Button(screen,background="white",command=savef,width=20,text="SAVE",font=("times new roman",30))
 saveb.grid(row=7,column=1,columnspan=2)
 
+showb=tkinter.Button(screen,background="white",command=show,text="SHOW",font=("times new roman",30))
+showb.grid(row=6,column=2)
 
 screen.mainloop()
