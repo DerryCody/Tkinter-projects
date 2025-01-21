@@ -1,4 +1,5 @@
 import tkinter
+from tkinter.colorchooser import askcolor
 
 class Brush():
     def __init__(self):
@@ -18,16 +19,46 @@ class Brush():
         self.pensize.grid(row=0,column=4)
         self.canvas=tkinter.Canvas(self.screen,width=619,height=550,background="white")
         self.canvas.grid(row=1,column=0,columnspan=5)
+        self.setup()
         self.screen.mainloop()
     def penchoice(self):
-        pass
+        self.activatebutton(self.pen)
+        self.eraseron=False
     def colourchoice(self):
-        pass
+        self.colour=askcolor()[1]
     def brushchoice(self):
-        pass
+        self.activatebutton(self.brush)
+        self.eraseron=False
     def eraserchoice(self):
-        pass
+        self.activatebutton(self.eraser)
+        self.eraseron=True
+    def activatebutton(self,on):
+        self.activebutton.config(relief=tkinter.RAISED)
+        self.activebutton=on
+        self.activebutton.config(relief=tkinter.SUNKEN)
     def size(self):
         pass
+    def draw(self,event):
+        self.thickness=self.pensize.get()
+        if self.eraseron==True:
+            self.pencolour="white"
+        else:
+            self.pencolour=self.colour
+        if self.oldx and self.oldy:
+            self.canvas.create_line(self.oldx,self.oldy,event.x,event.y,fill=self.pencolour,width=self.thickness,smooth=True)
+        self.oldx=event.x
+        self.oldy=event.y
+    def stopd(self,event):
+        self.oldx=None
+        self.oldy=None
+    def setup(self):
+        self.thickness=5
+        self.colour="black"
+        self.eraseron=False
+        self.activebutton=self.pen
+        self.oldx=None
+        self.oldy=None
+        self.canvas.bind("<B1-Motion>",self.draw)
+        self.canvas.bind("<ButtonRelease-1>",self.stopd)
 
 Brush()
